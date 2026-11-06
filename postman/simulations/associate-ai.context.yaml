@@ -1,0 +1,44 @@
+purpose:
+  stands_in_for: OpenAI Responses structured outputs and embeddings
+  unblocks: Local SDK transport, response parsing, hybrid-index wiring and provider failure checks
+assumptions:
+  - id: structured-output-contract
+    status: supported
+    claim: The configured live model accepts Responses JSON schema output and returns the requested schema.
+    reason: After credential replacement, gpt-6-luna accepted the application's Responses JSON schemas and returned parseable coaching and comparison outputs in sampled live requests. This establishes observed model access and schema parsing, not comprehensive answer quality.
+    verification: Initial AuthenticationError remains historical evidence. With the updated key, scripts/check_ai_simulation.py --live passed real embeddings, hybrid coaching, two-TV comparison, context follow-up, unsupported-fact fallback and injection blocking. The running app published index version 1; see docs/validation.md.
+    source: app/web/intelligence.py; postman/mocks/openai/default.js; https://developers.openai.com/api/docs/guides/structured-outputs
+    updated_at: '2026-11-01'
+  - id: embedding-contract
+    status: supported
+    claim: The embedding endpoint returns a vector for each supplied input, indexed by input order.
+    reason: The official embedding contract provides indexed embedding objects; storage and retrieval remain application responsibilities.
+    verification: Read the official embeddings guide and the Orbit integration brief. Local vectors intentionally model shape only, not semantic quality.
+    source: https://developers.openai.com/api/docs/guides/embeddings; app/web/intelligence.py
+    updated_at: '2026-11-01'
+  - id: reviewer-outage-retention
+    status: supported
+    claim: In the local simulated 503 scenario, the application retains one retryable user message without fabricating an assistant answer.
+    reason: The real application and OpenAI SDK were exercised against the existing local stand-in, including repeated failed submission with the same request ID.
+    verification: On 2026-11-01 scripts/check_ai_simulation.py exited 0; provider 503 mapped to application 502 twice and message count stayed unchanged on retry. Simulation request events confirmed embeddings and Responses traffic. This does not establish live provider outage frequency or timeout behavior.
+    source: scripts/check_ai_simulation.py; postman/mocks/openai/default.js; improvments.md
+    updated_at: '2026-11-01'
+  - id: contest-audit-provider-outage-2026-11-05
+    status: supported
+    claim: The local simulated provider 503 retains one retryable user message without a fabricated answer in the November 5 audit.
+    reason: The real SDK and application passed the existing simulation check, including duplicate submission after failure; this remains local stand-in evidence.
+    verification: scripts/check_ai_simulation.py exited 0 on 2026-11-05. Application returned 502 twice; saved message count did not grow on retry. Simulation request events showed embeddings, successful Responses calls and two Responses 503 errors.
+    source: scripts/check_ai_simulation.py; output/contest-acceptance-2026-11-05/outage-check.log; output/contest-acceptance-2026-11-05/simulation.ndjson
+    updated_at: '2026-11-05'
+  - id: final-text-message-outage-2026-11-06
+    status: supported
+    claim: The text acceptance changes preserve retryable provider failures without a fabricated answer or duplicated user message in the local simulation.
+    reason: The existing application and SDK simulation passed after introducing durable message receipts and sharing the structured workflow services with text capture.
+    verification: scripts/check_ai_simulation.py completed successfully; two provider 503 calls returned application 502 and retained one user message. The simulation log contains successful embeddings/Responses and both failed Responses requests. Separately, live TCP text acceptance exercised 202 acknowledgements and polling with the configured real provider.
+    source: scripts/check_ai_simulation.py; scripts/final_text_acceptance.py; output/text-final-acceptance-2026-11-06/simulation-check.log; output/text-final-acceptance-2026-11-06/http-evidence.json
+    updated_at: '2026-11-06'
+fingerprints:
+  - id: initial-implementation
+    date: '2026-11-01'
+    commit: null
+    cli: 1.83.0

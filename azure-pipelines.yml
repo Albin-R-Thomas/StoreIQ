@@ -1,0 +1,35 @@
+# Register this VM in an Azure DevOps environment before enabling the pipeline.
+trigger:
+  branches:
+    include:
+      - main
+pr: none
+
+jobs:
+  - deployment: DeployWebsite
+    displayName: Deploy StoreIQ website and API
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    environment:
+      name: storeiq-production
+      resourceType: virtualMachine
+      resourceName: storeiq-prod-vm
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+              clean: true
+            - download: none
+            - bash: |
+                set -euo pipefail
+                release="$(Build.BuildId)-$(Build.SourceVersion)"
+                destination="/opt/storeiq/releases/$release"
+                mkdir -p "$destination"
+                tar --exclude=__pycache__ --exclude=frontend/node_modules \
+                  --exclude=frontend/dist --exclude='frontend/.env*' --exclude='*.tsbuildinfo' -cf - \
+                  Dockerfile Dockerfile.backend compose.azure.yaml pyproject.toml \
+                  .dockerignore alembic.ini app migrations fixtures frontend deploy/azure \
+                  | tar -xf - -C "$destination"
+                bash "$destination/deploy/azure/release.sh" "$destination" "$release"
+              workingDirectory: $(Build.SourcesDirectory)
+              displayName: Build and deploy website with readiness check

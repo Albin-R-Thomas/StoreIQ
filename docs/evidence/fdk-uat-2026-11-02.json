@@ -1,0 +1,203 @@
+{
+    "recorded_at_utc":  "2026-11-02T18:00:25.7121044Z",
+    "application_id":  "637f6ddff605ec8ef9454f99",
+    "target_host_source":  "Storefront URL supplied in FDK_Method_Reference_v1.9.5_UAT.docx; dedicated REST API base URL not independently confirmed",
+    "auth_sources":  [
+                         "https://partners.jiocommerce.io/help/docs/sdk/latest/application/client-libraries",
+                         "https://docs.fynd.com/partners/commerce/headless/authentication/"
+                     ],
+    "transport":  "curl with Windows certificate validation; ssl-revoke-best-effort tolerates unavailable certificate revocation service; no insecure TLS flag; no redirects followed",
+    "credential_handling":  "Authorization passed through stdin configuration; token and encoded pair omitted from saved results",
+    "cases":  [
+                  {
+                      "case":  "getProducts-None",
+                      "started_at_utc":  "2026-11-02T18:00:20.2031504Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=2\u0026filters=true",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Not sent"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  447,
+                      "elapsed_seconds":  0.878913,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:21 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642421107_824996693_155470843_35_13835_39_42_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;catalog\u0026#47;v1\u0026#46;0\u0026#47;products\u0026#63;\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;55732c31\u0026#46;1793642421\u0026#46;9444bfb\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;55732c31\u0026#46;1793642421\u0026#46;9444bfb\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "items array",
+                                         "expected_shape_present":  false
+                                     }
+                  },
+                  {
+                      "case":  "getProducts-Basic",
+                      "started_at_utc":  "2026-11-02T18:00:21.6200185Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=2\u0026filters=true",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Basic [REDACTED base64 application ID and token]"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  447,
+                      "elapsed_seconds":  0.630333,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:22 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642422247_824996693_155471175_24_12297_30_58_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;catalog\u0026#47;v1\u0026#46;0\u0026#47;products\u0026#63;\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;55732c31\u0026#46;1793642422\u0026#46;9444d47\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;55732c31\u0026#46;1793642422\u0026#46;9444d47\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "items array",
+                                         "expected_shape_present":  false
+                                     }
+                  },
+                  {
+                      "case":  "getProducts-Bearer",
+                      "started_at_utc":  "2026-11-02T18:00:22.3960152Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=2\u0026filters=true",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Bearer [REDACTED base64 application ID and token]"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  447,
+                      "elapsed_seconds":  0.673241,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:23 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642423042_824996693_155471477_2497_11625_30_40_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;catalog\u0026#47;v1\u0026#46;0\u0026#47;products\u0026#63;\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;55732c31\u0026#46;1793642423\u0026#46;9444e75\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;55732c31\u0026#46;1793642423\u0026#46;9444e75\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "items array",
+                                         "expected_shape_present":  false
+                                     }
+                  },
+                  {
+                      "case":  "getPromotionOffers-None",
+                      "started_at_utc":  "2026-11-02T18:00:23.2322574Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/cart/v1.0/available-promotions",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Not sent"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  457,
+                      "elapsed_seconds":  0.633223,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:24 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642423849_824996807_315434472_1804_10380_34_45_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;cart\u0026#47;v1\u0026#46;0\u0026#47;available\u0026#45;promotions\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;c7732c31\u0026#46;1793642423\u0026#46;12cd25e8\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;c7732c31\u0026#46;1793642423\u0026#46;12cd25e8\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "available_promotions array",
+                                         "expected_shape_present":  false
+                                     }
+                  },
+                  {
+                      "case":  "getPromotionOffers-Basic",
+                      "started_at_utc":  "2026-11-02T18:00:24.0328502Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/cart/v1.0/available-promotions",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Basic [REDACTED base64 application ID and token]"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  457,
+                      "elapsed_seconds":  0.652544,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:25 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642424668_824996807_315434763_24_10969_34_45_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;cart\u0026#47;v1\u0026#46;0\u0026#47;available\u0026#45;promotions\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;c7732c31\u0026#46;1793642424\u0026#46;12cd270b\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;c7732c31\u0026#46;1793642424\u0026#46;12cd270b\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "available_promotions array",
+                                         "expected_shape_present":  false
+                                     }
+                  },
+                  {
+                      "case":  "getPromotionOffers-Bearer",
+                      "started_at_utc":  "2026-11-02T18:00:24.8565221Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/cart/v1.0/available-promotions",
+                      "request_headers":  {
+                                              "Accept":  "application/json",
+                                              "Authorization":  "Bearer [REDACTED base64 application ID and token]"
+                                          },
+                      "status_code":  403,
+                      "body_bytes":  455,
+                      "elapsed_seconds":  0.686201,
+                      "transport_exit_code":  0,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:00:25 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793642425487_824996693_155472210_20_10087_33_50_-\";dur=1",
+                                               "Strict-Transport-Security":  "max-age=86400"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;cart\u0026#47;v1\u0026#46;0\u0026#47;available\u0026#45;promotions\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;55732c31\u0026#46;1793642425\u0026#46;9445152\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;55732c31\u0026#46;1793642425\u0026#46;9445152\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "assertions":  {
+                                         "status_is_200":  false,
+                                         "body_is_json":  false,
+                                         "expected_shape":  "available_promotions array",
+                                         "expected_shape_present":  false
+                                     }
+                  }
+              ],
+    "postman_corroboration":  {
+                                  "timestamp":  "2026-11-02T17:59:38.355Z",
+                                  "method":  "GET",
+                                  "url":  "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=2",
+                                  "authorization":  "Not sent",
+                                  "status_code":  403,
+                                  "status":  "Forbidden",
+                                  "response_time_ms":  1091,
+                                  "response_size":  449,
+                                  "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;catalog\u0026#47;v1\u0026#46;0\u0026#47;products\u0026#63;\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;281cc517\u0026#46;1793642378\u0026#46;4c998ff7\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;281cc517\u0026#46;1793642378\u0026#46;4c998ff7\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                                  "tests":  {
+                                                "total":  0,
+                                                "passed":  0,
+                                                "failed":  0,
+                                                "results":  [
+
+                                                            ]
+                                            },
+                                  "command_exit_code":  1,
+                                  "tls":  "Node 24 --use-system-ca; certificate verification enabled",
+                                  "report_events":  false
+                              }
+}

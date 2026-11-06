@@ -1,0 +1,34 @@
+[
+  {
+    "id": "mock-tv-room",
+    "title": "TV viewing distance and room assessment",
+    "source": "fixture://guidance/tv-room",
+    "text": "Synthetic training guidance: When a customer asks about a television or TV screen size, ask how far the sofa is from the screen. Ask about the room layout, wall mounting space and the customer's existing TV before discussing options. Record their answers; do not infer the customer's budget from their appearance.",
+    "store_ids": [],
+    "is_mock": true
+  },
+  {
+    "id": "mock-tv-usage",
+    "title": "TV sports, streaming and glare questions",
+    "source": "fixture://guidance/tv-usage",
+    "text": "Synthetic training guidance: If the customer watches cricket, sports or streaming shows, ask which source devices and streaming services they use. Ask whether windows create glare on the screen during their usual viewing time. Let the associate confirm the customer's needs before suggesting a demonstration. Product capabilities must come from the approved catalog.",
+    "store_ids": [],
+    "is_mock": true
+  },
+  {
+    "id": "mock-ac-site",
+    "title": "AC installation site questions",
+    "source": "fixture://guidance/ac-site",
+    "text": "Synthetic training guidance: For an air conditioner or AC installation conversation, ask about the room, outdoor unit location, drainage route and access for an installer. Treat all installation charges and included services as unavailable until verified in structured data. Do not quote a guessed charge or promise an installation date.",
+    "store_ids": [],
+    "is_mock": true
+  },
+  {
+    "id": "mock-washing-usage",
+    "title": "Washing machine household questions",
+    "source": "fixture://guidance/washing-usage",
+    "text": "Synthetic training guidance: For a washing machine, ask how many people use it, which clothes are washed together and where the machine will stand. Ask about water access and available space. Do not convert a capacity label into a promised load size without an approved source.",
+    "store_ids": [],
+    "is_mock": true
+  }
+]

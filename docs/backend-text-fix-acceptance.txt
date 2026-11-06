@@ -1,0 +1,10 @@
+Backend text fixes acceptance
+
+42 regression tests passed. Live replay: 46 turns across 16 conversations.
+Saved-state assertions passed for combined answers, corrections, text demo completion, two-TV demo selection, ambiguous distance, unknown distance, ambiguous placement/budget, and slash-separated dates.
+
+Changes: narrow single-answer fast path; context-aware multi-field extraction; deterministic ambiguity guards; field-specific clarification; typed demo evidence; two-TV demo pair; validated distance units; DD/MM/YYYY parsing.
+
+Live transcripts: output/text-flow-review/conversations.json. The earlier review file describes pre-fix findings.
+
+Remaining limitation: real AI replies still sometimes exceed five seconds (sampled expert replies about 7-10 seconds). Website checking feedback exists; the synchronous backend has no early acknowledgement response. This timing requirement is not accepted. Full Ruff checks also encounter existing E501 long lines; checks excluding E501 pass.

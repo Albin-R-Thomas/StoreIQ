@@ -1,0 +1,35 @@
+const labels: Record<string, [string, string]> = {
+  "Viewing distance": ["देखने की दूरी", "पाहण्याचे अंतर"],
+  "Room light": ["कमरे की रोशनी", "खोलीतील प्रकाश"],
+  "Main use": ["मुख्य उपयोग", "मुख्य वापर"],
+  "Seating": ["बैठने की जगह", "बसण्याची जागा"],
+  "Current frustration": ["अभी की समस्या", "सध्याची अडचण"],
+  "Placement & space": ["स्थान और जगह", "स्थान आणि जागा"],
+  "Comfortable budget": ["खर्च की सीमा", "खर्चाची मर्यादा"],
+  "Placement": ["स्थान", "स्थान"],
+  "Choose": ["चुनें", "निवडा"],
+  "Specialist drilling or structural work needed?": ["विशेष ड्रिलिंग या ढाँचे का काम चाहिए?", "विशेष ड्रिलिंग किंवा बांधकाम आवश्यक आहे का?"],
+  "Power socket": ["बिजली का सॉकेट", "विजेचे सॉकेट"],
+  "Cable route": ["केबल का रास्ता", "केबलचा मार्ग"],
+  "Wall and access": ["दीवार और पहुँच", "भिंत आणि प्रवेश"],
+  "Connected devices": ["जुड़े उपकरण", "जोडलेली उपकरणे"],
+  "Power, cable route, wall/access & devices": ["बिजली, केबल, दीवार और उपकरण का विवरण", "वीज, केबल, भिंत आणि उपकरणांचे तपशील"],
+  "What difference did the customer prefer?": ["ग्राहक को कौन सा अंतर पसंद आया?", "ग्राहकाला कोणता फरक आवडला?"],
+  "What difference still needs checking?": ["कौन सा अंतर अभी जाँचना है?", "अजून कोणता फरक तपासायचा आहे?"],
+  "Why could the physical demo not be completed?": ["वास्तविक डेमो क्यों नहीं हुआ?", "प्रत्यक्ष प्रात्यक्षिक का झाले नाही?"],
+  "What is pending?": ["क्या लंबित है?", "काय प्रलंबित आहे?"],
+  "Agreed date & time (local timezone)": ["सहमत तारीख और समय (स्थानीय)", "मान्य तारीख आणि वेळ (स्थानिक)"],
+  "Owner": ["जिम्मेदार व्यक्ति", "जबाबदार व्यक्ती"],
+  "Customer agreed to follow-up contact": ["ग्राहक ने संपर्क की सहमति दी", "ग्राहकाने संपर्काला संमती दिली"],
+  "Visit note": ["भेंट का नोट", "भेटीची नोंद"],
+  "Cancel": ["रद्द करें", "रद्द करा"], "Save": ["सहेजें", "जतन करा"],
+  "Their answer, or Unknown": ["उत्तर या Unknown लिखें", "उत्तर किंवा Unknown लिहा"],
+  "Record the check, or Unknown": ["जाँच का विवरण या Unknown", "तपासणीचा तपशील किंवा Unknown"],
+  "No — standard installation confirmed": ["नहीं — सामान्य स्थापना पुष्टि", "नाही — सामान्य स्थापना निश्चित"],
+  "Yes — charge needs confirmation": ["हाँ — शुल्क की पुष्टि बाकी", "हो — शुल्क निश्चित करणे बाकी"],
+  "Unknown — finalisation pending": ["पता नहीं — अंतिम निर्णय लंबित", "माहीत नाही — अंतिम निर्णय प्रलंबित"],
+};
+
+export function local(language: string, value: string) {
+  return language === "Hindi" ? labels[value]?.[0] || value : language === "Marathi" ? labels[value]?.[1] || value : value;
+}

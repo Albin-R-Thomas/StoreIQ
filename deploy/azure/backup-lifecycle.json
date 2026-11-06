@@ -1,0 +1,13 @@
+{
+  "rules": [
+    {
+      "enabled": true,
+      "name": "expire-backups-after-30-days",
+      "type": "Lifecycle",
+      "definition": {
+        "filters": { "blobTypes": ["blockBlob"], "prefixMatch": ["backups/"] },
+        "actions": { "baseBlob": { "delete": { "daysAfterModificationGreaterThan": 30 } } }
+      }
+    }
+  ]
+}

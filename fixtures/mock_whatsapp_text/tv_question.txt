@@ -1,0 +1,2 @@
+TEST SCENARIO: The customer wants a new TV for cricket and streaming. What should
+I ask about viewing distance and glare in their living room?
