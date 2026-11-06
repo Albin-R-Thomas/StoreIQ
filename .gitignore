@@ -18,3 +18,11 @@ frontend/dist/
 frontend/*.tsbuildinfo
 .tools/
 output/
+
+# Confidential reference materials and demo assets (keep local only)
+/6_Reliance_Digital_Store_IQ_Contest_28Oct2026.pdf
+/Store_Visit_Findings_Reference_27Oct2026 (1).pdf
+/FDK_Method_Reference_v1.9.5_UAT.docx
+/store-iq-summary-v14.pdf
+/Record (online-voice-recorder.com).mp3
+/docs/video-script.md
