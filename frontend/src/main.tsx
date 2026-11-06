@@ -40,6 +40,7 @@ import { Summary, Shared } from "./summary";
 import { Tasks, Training, Requests, Admin } from "./operations";
 import { OfferSchedule } from "./schedule";
 import { CustomerActivity } from "./customer-activity";
+import { BrandMark } from "./brand-mark";
 import "./styles.css";
 import "./guided-chat.css";
 
@@ -65,7 +66,7 @@ function Login({ onLogin }: any) {
       <div className="login-story">
         <div className="brand">
           <span className="brand-icon">
-            <Sparkles size={23} />
+            <BrandMark />
           </span>
           store<span>iq</span>
           <Badge tone="light">ASSOCIATE</Badge>
@@ -298,7 +299,7 @@ function App() {
       <aside className={`sidebar ${mobile ? "open" : ""}`}>
         <div className="brand">
           <span className="brand-icon">
-            <Sparkles size={22} />
+            <BrandMark />
           </span>
           store<span>iq</span>
           <span className="brand-dot" />

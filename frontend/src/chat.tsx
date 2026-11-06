@@ -2,6 +2,7 @@ import { UserRound, Sparkles, Check, LoaderCircle } from "lucide-react";
 import { date, money } from "./api";
 import { Badge, Button, Sources, HOME, ReplyButtons } from "./ui";
 import { local } from "./locale";
+import { MessageText } from "./message-text";
 
 export function MessageList({
   messages,
@@ -34,7 +35,8 @@ export function MessageList({
                     : m.actor || "YOU"}{" "}
               <span>{date(m.created_at)}</span>
             </div>
-            <div className="message-bubble">{m.text}</div>
+            <div className="message-bubble"><MessageText text={m.text} /></div>
+            {m.share?.path && <div className="message-share"><MessageText text={m.share.path} /></div>}
             <Sources sources={m.sources} trace={m.trace} />
             {(m.id === activeMessageId || m.buttons?.length > 0) && (
               <ReplyButtons

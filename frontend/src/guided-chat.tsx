@@ -17,6 +17,7 @@ import { api, money } from "./api";
 import { VoiceNote } from "./voice-note";
 import { ActionForm, MessageList } from "./chat";
 import { Badge, Button, HOME, LABELS, STAGES, ReplyButtons } from "./ui";
+import { MessageText } from "./message-text";
 
 const TITLES: Record<string, string> = {
   home: "Edit the home card",
@@ -248,7 +249,7 @@ export function Chat({
                 </span>
                 <div className="message-content">
                   <div className="message-meta">STORE IQ · NEXT STEP</div>
-                  <div className="message-bubble">{flow.lines.join("\n")}</div>
+                  <div className="message-bubble"><MessageText text={flow.lines.join("\n")} /></div>
                   <ReplyButtons
                     buttons={flow.buttons}
                     onChoose={choose}
