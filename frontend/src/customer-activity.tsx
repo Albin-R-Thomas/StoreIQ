@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { date } from "./api";
 import { Badge, Button, Empty, HOME, LABELS } from "./ui";
+import { MessageText } from "./message-text";
 
 export function CustomerActivity({ data, open }: any) {
   const [query, setQuery] = useState("");
@@ -46,7 +47,7 @@ export function CustomerActivity({ data, open }: any) {
           {requests.map((r: any) => <div className="activity-event" key={r.id}><b>#{r.number} · {r.status} · {r.assigned_to || "Unassigned"}</b><p>{r.question}</p><small>Raised {date(r.created_at)} IST{r.escalated ? " · Escalated" : ""}</small>{r.thread?.map((t: any, i: number) => <p key={i}>{t.by} · {date(t.at)}: {t.text}</p>)}</div>)}
           {!requests.length && <p className="hint">No expert requests recorded.</p>}
           <h4>Pending tasks</h4>{tasks.map((t: any) => <div className="activity-event" key={t.id}><b>{t.kind.replaceAll("_", " ")} · {t.status}</b><p>{t.detail}</p><small>Owner: {t.assigned_to || "Unassigned"} · Due {date(t.due_at)} IST</small></div>)}{!tasks.length && <p className="hint">No pending tasks recorded.</p>}
-          <h4>Recorded interactions</h4><div className="activity-transcript">{(c.messages || []).map((m: any) => <div className="activity-event" key={m.id}><b>{m.role === "assistant" ? "Store IQ guidance" : m.role === "event" ? "Visit update" : m.role === "admin" ? `Admin · ${m.actor || "Admin"}` : `Associate entry · ${m.actor || associate}`}</b><small>{date(m.created_at)} IST</small><p>{m.text}</p></div>)}</div>{!c.messages?.length && <p className="hint">No interactions recorded.</p>}
+          <h4>Recorded interactions</h4><div className="activity-transcript">{(c.messages || []).map((m: any) => <div className="activity-event" key={m.id}><b>{m.role === "assistant" ? "Store IQ guidance" : m.role === "event" ? "Visit update" : m.role === "admin" ? `Admin · ${m.actor || "Admin"}` : `Associate entry · ${m.actor || associate}`}</b><small>{date(m.created_at)} IST</small><p><MessageText text={m.text} /></p></div>)}</div>{!c.messages?.length && <p className="hint">No interactions recorded.</p>}
           {c.notes?.map((n: any, i: number) => <div className="activity-event" key={i}><b>Visit note · {n.by}</b><small>{date(n.at)} IST</small><p>{n.text}</p></div>)}
           <div className="form-actions"><Button secondary onClick={() => open(c, "history")}>Open visit history</Button><Button secondary onClick={() => open(c, "requests")}>Manage expert requests</Button><Button onClick={() => open(c)}>Continue conversation</Button></div>
         </div>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Sparkles,
   ShieldCheck,
   Download,
   Link,
@@ -8,13 +7,14 @@ import {
 } from "lucide-react";
 import { api, date, money } from "./api";
 import { Badge, Button, Empty, Heading, HOME, TV } from "./ui";
+import { BrandMark } from "./brand-mark";
 
 export function QuoteView({ quote: q }: any) {
   return (
     <div className="quote-sheet">
       <div className="quote-header">
         <div className="brand">
-          <Sparkles size={22} />
+          <span className="brand-icon"><BrandMark /></span>
           store<span>iq</span>
         </div>
         <Badge tone="neutral">{q.kind}</Badge>
@@ -272,10 +272,10 @@ export function Summary({ customer: c, run, act, setNotice, onNavigate }: any) {
           )}
           {link && (
             <div className="share-result">
-              <label>
-                Shareable link
-                <input readOnly value={link} />
-              </label>
+              <div className="share-url-field">
+                <span>Shareable link</span>
+                <a className="share-url" href={link} target="_blank" rel="noopener noreferrer">{link}</a>
+              </div>
               <Button
                 secondary
                 onClick={() =>

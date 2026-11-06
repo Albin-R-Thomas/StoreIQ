@@ -145,6 +145,44 @@ hr {
   background: #a3b67c;
   margin: 12px 0 0 3px;
 }
+.brand-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.message-summary-link {
+  color: inherit;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.message-summary-link:hover {
+  text-decoration-thickness: 2px;
+}
+.message-summary-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+.message-share {
+  margin-top: 8px;
+}
+.share-url-field {
+  display: grid;
+  gap: 8px;
+}
+.share-url {
+  overflow-wrap: anywhere;
+}
+.share-result .share-url {
+  display: block;
+  margin-top: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--green);
+}
 .store-switch {
   display: flex;
   align-items: center;
