@@ -1,0 +1,191 @@
+Backend text flow review — 5 November 2026
+
+Result: the structured backend journey passes, but the conversational journey
+does not reliably handle combined answers, corrections or vague home details.
+Do not treat HTTP 200 or the passing existing suite as conversational acceptance.
+
+Scope and execution
+-------------------
+Reference: docs/tv-store-associate-flows.md, all 14 numbered flow areas plus
+customer lists, comparison, expert/admin requests and summary sharing.
+Used FastAPI HTTP handlers through TestClient, real SQLite in isolated temporary
+databases, synthetic seeded accounts/products and real configured AI for the
+conversation probes. No browser, voice, photos, real payments or external
+customer messaging. Explicit JSON actions exercised the website's text forms.
+The temporary test databases were discarded; application code was not changed.
+
+Executed:
+1. python -m unittest tests.test_web_journey tests.test_guided_chat
+   tests.test_improvements tests.test_messaging -v
+   39 tests passed in 22.085 seconds, exit 0. Messaging failure/retry tests use
+   controlled provider substitutes; these are not real transport evidence.
+2. python -m scripts.review_backend_flows
+   29 observations, assertions completed, exit 0. Covers 18 training answer
+   submissions, finance, extras, tasks, sharing, dates and workflow gates.
+3. python -m scripts.probe_text_flows --live (initial scenario set)
+   37 text turns across 13 conversations, all HTTP 200. Semantic defects below.
+4. python -m scripts.probe_text_flows --live --extra
+   9 additional text turns across 3 conversations, all HTTP 200.
+   The saved script now includes these three scenarios in its default run too.
+5. python -m scripts.check_ai_simulation --live
+   Exit 0: real index rebuild, hybrid BM25/vector grounded answer, comparison,
+   context follow-up, unsupported-specification fallback and injection blocking.
+   Despite the script name, --live used the real AI service, not a simulation.
+
+Reproduction evidence
+---------------------
+Full inputs, replies, saved home values, next question, stage, selections and
+elapsed times:
+  output/text-flow-review/conversations.json
+  output/text-flow-review/extra/conversations.json
+Broader workflow observations:
+  output/improvements-review-evidence.json
+These output files are local ignored artifacts. Reusable probes are saved in
+scripts/probe_text_flows.py. Assertions and fixtures for the existing suite are
+in the four test modules listed above.
+
+Findings, in priority order
+--------------------------
+1. HIGH — Combined answers after a prompt are saved in one field.
+   Send "9 feet". The next question is room light.
+   Send "Sunny, mostly Netflix, all of us straight ahead, the old one sounds
+   muffled, on a cabinet, around seventy thousand".
+   Actual: the complete sentence becomes home.light; the bot asks main use again.
+   Expected: retain all six answers, or clarify only genuinely ambiguous parts.
+   Evidence: extra/combined-after-prompt.
+   Cause: app/web/flow.py:427 detects multiple facts with a narrow keyword list;
+   app/web/flow.py:600-608 otherwise saves the entire reply in awaiting_home.
+   "Sunny", "Netflix", "cabinet" and written amounts bypass that detection.
+
+2. HIGH — Corrections overwrite the pending field, not the corrected detail.
+   Send "9 feet and bright sunlight", then "Actually make that twelve feet".
+   Actual: distance remains 9 feet; main use becomes the correction sentence.
+   Separately, after "2 hand lengths", send "I mean from the sofa to the TV.
+   I have not measured it." Actual: that explanation becomes room light.
+   Expected: update/clarify distance and preserve the unrelated fields.
+   Evidence: extra/correction-without-keywords; two-hand-lengths.
+   Same routing cause as finding 1.
+
+3. HIGH — Vague measurements and objects count as completed assessment answers.
+   "2 hand lengths" and "About the length of that big cupboard" are accepted
+   as distance, immediately advancing to light without clarification.
+   "On that wooden thing near the window" is accepted as placement, advancing
+   to budget. An entirely vague seven-part answer reaches home confirmation.
+   Expected: ask for usable units/object identity, or record explicit Unknown
+   and explain the resulting limitation without repeatedly asking it.
+   Evidence: two-hand-lengths, object-distance, vague-everything,
+   vague-placement-after-answers, mixed-vague-and-known.
+   app/web/flow.py:35 checks presence only; domain.py:378 home_answer validates
+   only nonempty input. Additionally, domain.py:237-241 takes the first number
+   as feet unless it recognizes metres: "2 hand lengths" can influence size
+   ranking as 2 feet. This latter interpretation is code-confirmed; these probes
+   did not isolate its effect on the final shortlist.
+
+4. HIGH — A natural text demo preference does not complete the demo.
+   Confirm the seven home facts; send "Demo A/B", "Demo done", then
+   "They preferred Samsung Vision Q55 because cricket motion looked smoother".
+   Actual: stage remains demo; reply is advice and the prompt switches to expert
+   controls. "Demo done" supplies an input-action button rather than asking
+   and consuming the preference in text. Explicit JSON demo submission works.
+   Expected: consume the typed preference/reason with the required explicit
+   confirmation and proceed to cost. Keep inference alone from completing a sale.
+   Evidence: extra/text-demo-preference.
+
+5. MEDIUM — Vague spending comfort becomes an unrestricted shortlist.
+   At budget, answer "Something affordable, not too expensive", then "Correct".
+   Actual: recommends Sony Cinema A55, LG Cinema O55 and Samsung Vision Q55
+   without first obtaining the associate's starting range. It does say to confirm
+   price fit, so this is not an invented numeric budget.
+   Expected: clarify the range or explicitly agree to proceed with unknown budget.
+   Evidence: vague-budget-after-answers. domain.py:216-219 defaults unparseable
+   budgets to a very large cap.
+
+6. MEDIUM — Demo A/B includes all three shortlisted TVs.
+   Actual prompt names Vision Q55, Spectrum Q55 and Everyday U43.
+   Expected per document: save A and B as the demo pair.
+   Evidence: extra/text-demo-preference, Demo A/B turn.
+
+7. MEDIUM — Documented slash-separated dates are rejected.
+   "Customers from 01/11/2026 to 05/11/2026" receives a request for a valid
+   range. The same format appears in the flow document's date-range example.
+   Invalid reversed dates are correctly rejected; "Customers yesterday" works.
+   Evidence: early-price-and-dates.
+
+8. MEDIUM — Some backend replies exceed the five-second first-reply target.
+   Observed 6.92 seconds for implicit combined answers, 12.06 for the 4K doubt,
+   6.50 for an unknown model, 8.46 for vague compatibility, and 11.35 for the
+   demo-preference advice. Live comparison took 9.4 seconds.
+   The recorded HDMI-label turn took 69.53 seconds including the harness's
+   61-second rate-limit retry; do not report that as model latency.
+   The synchronous backend response did not provide an interim checking reply.
+   Browser acknowledgement was not assessed; these are individual observations,
+   not a load test or latency percentile measurement.
+
+What worked in natural text
+---------------------------
+- Explicit seven-answer message saved all seven facts and requested confirmation.
+- "9 feet and bright sunlight falls on the screen" skipped both answered fields.
+- A fresh-customer implicit seven-answer message also worked. The failure depends
+  on the pending-question fast path, not simply on whether the model can extract.
+- A correction containing several recognized topics updated distance and light,
+  retained cricket/movies and added gaming without losing existing facts.
+- Explicitly unknown distance was recorded as Unknown and was not asked again.
+- Unknown model XYZ-UNKNOWN-999 received the exact missing-facts fallback.
+- "Does that big black TV support my old box?" correctly requested the TV model
+  instead of guessing compatibility. Vague object handling is better in expert
+  mode than in home-answer mode.
+- Early price used the seeded catalogue price and returned to the home question.
+- Expert resolution returned to the saved assessment step.
+
+Coverage by documented flow
+---------------------------
+1  Shift/practice: start, skip, invalid action, all six questions/three choices,
+   progress/resume, repeat/finish behavior covered by existing backend checks.
+2  New customer: isolation, serials, duplicate names, ownership and saved history.
+3  Home assessment: combined/implicit/unknown/vague answers and corrections;
+   significant failures above despite explicit form actions passing.
+4  Doubts: live 4K belief response with sources and preserved assessment stage.
+5  Labels: typed known and unknown model, grounded partial/fallback responses.
+6  Recommendations: confirmation, budget caps, one/no suitable TV, changed
+   preferences and stock; vague-range weakness above.
+7  Demo: explicit preference/reason and incomplete-demo gate pass; natural text
+   continuation and A/B pair selection have failures above.
+8  Full cost: required/optional arithmetic, add/remove extras, separate site
+   evidence, changed-placement invalidation and unconfirmed specialist charges.
+9  Payment: offer/demo gates, full payment, finance arithmetic, explicit sale,
+   stock decrement, duplicate sale rejection and frozen purchase quote.
+10 Later/stock: consented/internal follow-up, owner/time, overdue notification,
+   stock disappearance blocking sale and retained pending work.
+11 Handover: explicit sale, consent/no consent, separate delivery/installation/
+   working-check tasks, internal-only sharing without consent.
+12 Follow-through: ordered completion, closure only after working check,
+   reopened installation invalidates dependent completion, reminder deduplication.
+13 Review: partial applicable-point denominator, evidence scores, saved resume.
+14 Other actions: Hindi/Marathi, expert interruption/resolve, notes, role checks,
+   admin request deduplication/reopen/reply and reminder/escalation cycles.
+Additional: comparison with real grounded verdict; share preview/consent,
+PDF generation, outdated quote detection and revocation; IST activity dates,
+associate filters, invalid/reversed dates; mock text transport replay/recovery.
+
+Limits
+------
+Coverage of every numbered area is not a claim that every optional button and
+every natural-language variant works. Several downstream flows pass through
+explicit backend text-form actions rather than free-form chat. Text-only user
+chat is demonstrably insufficient to complete the sampled demo continuation.
+Customer list pagination/serial selection purely inside a messaging conversation,
+every navigation command, real WhatsApp dual-channel notifications, real-time
+two/five-minute waits, actual TV demonstrations and real installation were not
+certified. Timer tests advance stored timestamps. Sharing remains simulated.
+Voice/photo-only branches were intentionally excluded.
+
+Tooling: initial sandbox temporary-directory access failed; rerun with approved
+permissions passed. Postman status then succeeded: CLI 1.85.0, resources initialized,
+no signed-in account, local skills missing/outdated. The repository-referenced
+postman/skills/api-engineer/SKILL.md was absent, so installed Postman skills were
+used. No collection run or hosted Postman results are claimed.
+
+Recommended fix order: correct pending-question routing and correction detection;
+validate ambiguity/units before treating home fields as answered; add text
+preference confirmation for demo; align A/B selection and accepted date formats;
+then add these failing transcripts as regression tests.

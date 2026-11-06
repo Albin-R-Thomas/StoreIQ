@@ -1,0 +1,15 @@
+.venv
+.env
+.git
+__pycache__
+*.egg-info
+*.pdf
+postman
+.postman
+tmp
+.tools
+data
+output
+frontend/node_modules
+frontend/dist
+tests

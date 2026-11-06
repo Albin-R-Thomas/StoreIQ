@@ -1,0 +1,83 @@
+{
+  "recorded_at_utc": "2026-11-02T19:24:30.608858+00:00",
+  "cases": [
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=1&filters=true",
+      "auth": "none",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 449,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=1&filters=true",
+      "auth": "Basic",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 449,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=1&filters=true",
+      "auth": "Bearer",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 449,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products/?page_size=1&filters=true",
+      "auth": "none",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 454,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products/?page_size=1&filters=true",
+      "auth": "Basic",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 454,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products/?page_size=1&filters=true",
+      "auth": "Bearer",
+      "curl_exit": 0,
+      "http_status": 403,
+      "content_type": "text/html",
+      "redirect_url": "",
+      "response_bytes": 454,
+      "json": false,
+      "catalogue_shape": false,
+      "access_denied_html": true,
+      "storefront_not_found": false
+    }
+  ]
+}

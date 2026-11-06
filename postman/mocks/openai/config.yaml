@@ -1,0 +1,11 @@
+version: 1
+name: OpenAI contract fixture
+slug: openai-contract-fixture
+protocol: http
+port: 4011
+origin: api.openai.com
+interceptRequests: true
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

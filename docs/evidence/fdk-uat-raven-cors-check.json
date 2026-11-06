@@ -1,0 +1,84 @@
+{
+  "recorded_at_utc": "2026-11-02T19:46:26.383049+00:00",
+  "note": "UAT credentials only. Production cookies and captured signature not reused. No redirects followed.",
+  "cases": [
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "GET",
+      "auth": "Bearer",
+      "cors_request_test": false,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "GET",
+      "auth": "Basic",
+      "cors_request_test": false,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/ext/raven-api/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "GET",
+      "auth": "Bearer",
+      "cors_request_test": false,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/ext/raven-api/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "GET",
+      "auth": "Basic",
+      "cors_request_test": false,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/ext/raven-api/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "GET",
+      "auth": "Bearer",
+      "cors_request_test": true,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    },
+    {
+      "url": "https://reliance-digital.jiox5.de/ext/raven-api/catalog/v1.0/products?page_id=%2A&page_size=12&q=tv",
+      "method": "OPTIONS",
+      "auth": "none",
+      "cors_request_test": true,
+      "http_metadata": "403|text/html",
+      "curl_exit": 0,
+      "response_cors_headers": [],
+      "access_denied_html": true,
+      "storefront_not_found": false,
+      "json": false,
+      "catalogue_shape": false
+    }
+  ]
+}

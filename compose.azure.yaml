@@ -1,0 +1,25 @@
+name: storeiq
+services:
+  web:
+    image: storeiq-web:${STOREIQ_RELEASE:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: /opt/storeiq/.env
+    environment:
+      WEB_DATABASE_PATH: /service/data/store-iq.db
+    ports:
+      - '127.0.0.1:8000:8000'
+    volumes:
+      - /opt/storeiq/data:/service/data
+    restart: unless-stopped
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'

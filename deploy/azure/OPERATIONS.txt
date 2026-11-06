@@ -1,0 +1,114 @@
+StoreIQ Azure website deployment
+
+Website and API URL
+  https://storeiq-api-44d6f926.centralindia.cloudapp.azure.com
+Readiness
+  https://storeiq-api-44d6f926.centralindia.cloudapp.azure.com/health/ready
+
+Azure resources
+  Subscription: Azure subscription 1
+  Resource group: storeiq-prod-rg
+  Region: Central India
+  VM: storeiq-prod-vm / Standard_B2als_v2 / Ubuntu 24.04
+  Public IP: 20.198.4.31
+  Backup account: storeiqbackup44d6f926
+  Private Blob container: backups
+
+The website and API are deployed from a committed revision of main. Source
+commits are included in release/image tags. The production database was created
+fresh; local customer records and the local RAG index were not copied.
+
+Production credentials
+  Local: %LOCALAPPDATA%\StoreIQ\deployment\credentials.json
+  Account 9000000001: associate Aarav
+  Account 9000000002: associate Meera
+  Account 9000000009: admin Priya
+  VM environment file: /opt/storeiq/.env (mode 600)
+  The existing OpenAI and Azure Speech settings were copied from local .env.
+  Demo mode and development routes are disabled. Cookies require HTTPS.
+  ALLOW_DEFAULT_PASSWORDS=true is explicitly configured on this deployment at
+  the owner's request. Associate accounts use Associate@123 and the admin uses
+  Admin@123. These values are not displayed or prefilled on the login page.
+
+Frontend hosting
+  The production frontend and API run together on the existing Azure VM.
+  Dockerfile builds the React frontend and copies its output into the application
+  image. Nginx provides HTTPS and proxies to the application on localhost:8000.
+  The website and /api use the same HTTPS origin; no CORS configuration is needed.
+  PUBLIC_ORIGIN must remain the website's HTTPS origin.
+  Vercel hosting is optional and is not used by the production VM deployment.
+
+Optional separate frontend on Vercel
+  1. Deploy the current frontend directory, including vercel.json. If importing
+     from GitHub, first commit/push the frontend changes and vercel.json.
+  2. Set Root Directory to frontend, framework to Vite, build command to
+     npm run build, and output directory to dist.
+  3. No frontend API-key variables or VITE_API_URL are needed. /api and /health
+     requests are proxied to Azure by vercel.json. Shared links use the SPA route.
+  4. After Vercel assigns the final production URL, run from the repository:
+       powershell -ExecutionPolicy Bypass -File deploy/azure/set-frontend-origin.ps1 -Origin https://YOUR-PROJECT.vercel.app
+     Or send that production URL to the assistant to configure it.
+     Login writes will be rejected until PUBLIC_ORIGIN matches the Vercel URL.
+     A new production domain needs the same update. Preview domains are not
+     automatically trusted.
+  5. Sign in and use Store management to rebuild the RAG index if needed.
+
+Redeploy the website and backend from this computer
+  powershell -ExecutionPolicy Bypass -File deploy/azure/deploy.ps1
+  Both the frontend and backend are built from the packaged source. Each release
+  has a separate directory and image tag, including the source commit. SQLite stays
+  in /opt/storeiq/data and a consistent pre-deployment backup is taken.
+  Deployment is serialized with a file lock. Brief downtime occurs when the
+  single container is replaced. Health failures fail deployment; automatic
+  rollback is not configured.
+
+SSH access
+  Key: %LOCALAPPDATA%\StoreIQ\deployment\id_ed25519
+  User: azureuser
+  Host: storeiq-api-44d6f926.centralindia.cloudapp.azure.com
+  Port 22 is limited to 152.58.59.102/32. If your public IP changes, update the
+  AllowManagement rule on storeiq-prod-nsg to your new IP/32 before using SSH.
+  The application port 8000 is bound only to localhost; ports 80/443 are public.
+
+VM operations (after connecting over SSH)
+  Container status: docker ps
+  App logs: docker logs --tail 100 storeiq-web-1
+  Current release: readlink -f /opt/storeiq/current
+  Local readiness: curl -f http://127.0.0.1:8000/health/ready
+  Trigger backup: sudo systemctl start storeiq-backup.service
+  Backup logs: sudo journalctl -u storeiq-backup.service -n 20 --no-pager
+  Schedules: systemctl list-timers storeiq-backup.timer certbot.timer
+  Certificate check: sudo certbot renew --dry-run --no-random-sleep-on-renew
+
+Backups
+  SQLite online backups run daily around 02:30 UTC, including missed runs after
+  reboot. The VM identity uploads to the private Blob container without storage
+  account keys. Local copies are kept for 7 days, Blob copies for 30 days.
+  A backup was downloaded from private Blob Storage, checksum verified, restored
+  to a separate SQLite file, and checked for integrity and all three accounts.
+  The live database was not overwritten during the restore check.
+
+Azure DevOps status
+  azure-pipelines.yml is prepared for the website, but no organization, project,
+  pipeline, or VM deployment agent is connected yet. Azure requires organization
+  creation through its web signup; automated creation is unsupported.
+  Create an organization at https://dev.azure.com/ and provide its URL.
+  Then create a private project, connect this repository, register this VM in
+  environment storeiq-production as resource storeiq-prod-vm, and create the
+  YAML pipeline. Run its agent as azureuser. Protect the main branch and restrict
+  production pipeline access to trusted maintainers.
+
+Validation completed
+  Combined frontend/API image built and deployed from main; readiness passed.
+  Public HTTPS homepage, JavaScript/CSS assets, and SPA share route passed.
+  Login required; configured associate and admin password checks passed.
+  Secure/HttpOnly/SameSite=Strict cookie attributes and no-store responses passed.
+  Cross-site writes rejected. Sessions persisted across container restart.
+  Logout revoked the session. Backup upload and independent restore check passed.
+  Frontend production build, JSON/YAML parsing, and script syntax checks passed.
+  Live associate login, authenticated bootstrap, customer creation and lookup,
+  and asynchronous message polling passed through the public HTTPS endpoint.
+  A live OpenAI reply returned a sourced 120 Hz answer for the synthetic Samsung
+  Vision Q55 fixture in about six seconds. The labelled Deployment check
+  (synthetic) customer remains available to inspect that verification.
+  Voice recognition was not exercised on the Azure deployment.

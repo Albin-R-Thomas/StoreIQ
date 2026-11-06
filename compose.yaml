@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    env_file: .env
+    environment:
+      WEB_DATABASE_PATH: /service/data/store-iq.db
+    ports:
+      - '127.0.0.1:8000:8000'
+    volumes:
+      - store_iq_web:/service/data
+    restart: unless-stopped
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  store_iq_web:

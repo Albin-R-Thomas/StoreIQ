@@ -1,0 +1,56 @@
+{
+    "recorded_at_utc":  "2026-11-02T18:34:23.0849014Z",
+    "application_id":  "637f6ddff605ec8ef9454f99",
+    "auth":  "Exact Basic base64 header supplied by user; no recomputation or Bearer substitution",
+    "tls":  "Windows certificate/hostname validation enabled; revocation best effort; no insecure flag",
+    "cases":  [
+                  {
+                      "endpoint":  "getProducts",
+                      "started_at_utc":  "2026-11-02T18:34:20.7970337Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/catalog/v1.0/products?page_size=2\u0026filters=true",
+                      "authorization":  "Basic [REDACTED exact user-supplied base64 value]",
+                      "transport_exit_code":  0,
+                      "http_status":  403,
+                      "body_bytes":  449,
+                      "elapsed_seconds":  0.747597,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:34:22 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793644461880_389543061_3304130525_11_6466_40_51_-\";dur=1"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;catalog\u0026#47;v1\u0026#46;0\u0026#47;products\u0026#63;\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;95f43717\u0026#46;1793644461\u0026#46;c4f107dd\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;95f43717\u0026#46;1793644461\u0026#46;c4f107dd\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "checks":  {
+                                     "json_body":  false,
+                                     "documented_field_present":  false,
+                                     "http_200":  false
+                                 },
+                      "documented_field":  "items"
+                  },
+                  {
+                      "endpoint":  "getPromotionOffers",
+                      "started_at_utc":  "2026-11-02T18:34:22.2561623Z",
+                      "method":  "GET",
+                      "url":  "https://reliance-digital.jiox5.de/service/application/cart/v1.0/available-promotions",
+                      "authorization":  "Basic [REDACTED exact user-supplied base64 value]",
+                      "transport_exit_code":  0,
+                      "http_status":  403,
+                      "body_bytes":  457,
+                      "elapsed_seconds":  0.704849,
+                      "response_headers":  {
+                                               "Cache-Control":  "max-age=0, no-cache, no-store",
+                                               "Content-Type":  "text/html",
+                                               "Date":  "Mon, 02 Nov 2026 18:34:23 GMT",
+                                               "Server-Timing":  "cdn-cache; desc=HIT, edge; dur=1, ak_p; desc=\"1793644462980_389543061_3304133218_13_6311_44_52_-\";dur=1"
+                                           },
+                      "response_body":  "\u003cHTML\u003e\u003cHEAD\u003e\n\u003cTITLE\u003eAccess Denied\u003c/TITLE\u003e\n\u003c/HEAD\u003e\u003cBODY\u003e\n\u003cH1\u003eAccess Denied\u003c/H1\u003e\n \nYou don\u0027t have permission to access \"http\u0026#58;\u0026#47;\u0026#47;reliance\u0026#45;digital\u0026#46;jiox5\u0026#46;de\u0026#47;service\u0026#47;application\u0026#47;cart\u0026#47;v1\u0026#46;0\u0026#47;available\u0026#45;promotions\" on this server.\u003cP\u003e\nReference\u0026#32;\u0026#35;18\u0026#46;95f43717\u0026#46;1793644462\u0026#46;c4f11262\n\u003cP\u003ehttps\u0026#58;\u0026#47;\u0026#47;errors\u0026#46;edgesuite\u0026#46;net\u0026#47;18\u0026#46;95f43717\u0026#46;1793644462\u0026#46;c4f11262\u003c/P\u003e\n\u003c/BODY\u003e\n\u003c/HTML\u003e\n",
+                      "checks":  {
+                                     "json_body":  false,
+                                     "documented_field_present":  false,
+                                     "http_200":  false
+                                 },
+                      "documented_field":  "available_promotions"
+                  }
+              ]
+}
