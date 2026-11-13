@@ -19,16 +19,8 @@ commits are included in release/image tags. The production database was created
 fresh; local customer records and the local RAG index were not copied.
 
 Production credentials
-  Local: %LOCALAPPDATA%\StoreIQ\deployment\credentials.json
-  Account 9000000001: associate Aarav
-  Account 9000000002: associate Meera
-  Account 9000000009: admin Priya
-  VM environment file: /opt/storeiq/.env (mode 600)
-  The existing OpenAI and Azure Speech settings were copied from local .env.
-  Demo mode and development routes are disabled. Cookies require HTTPS.
-  ALLOW_DEFAULT_PASSWORDS=true is explicitly configured on this deployment at
-  the owner's request. Associate accounts use local-only-associate-test and the admin uses
-  local-only-admin-test. These values are not displayed or prefilled on the login page.
+  Store production credentials in the operator's local secure deployment directory and `/opt/storeiq/.env` on the VM (mode 600).
+  Default passwords are disabled; issue unique credentials through the secure operator channel.
 
 Frontend hosting
   The production frontend and API run together on the existing Azure VM.
