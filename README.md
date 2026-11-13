@@ -38,13 +38,7 @@ The optional `scripts/start-web.ps1` performs installation, build and startup.
 For frontend hot reload, run `npm.cmd run dev` in `frontend`; API requests proxy
 to port 8000. Cookies stay on the browser origin.
 
-| Demo role | Phone | Password |
-| --- | --- | --- |
-| Associate Aarav | 9000000001 | local-only-associate-test |
-| Associate Meera | 9000000002 | local-only-associate-test |
-| Admin Priya | 9000000009 | local-only-admin-test |
-
-These are synthetic accounts, active only with `DEMO_MODE=true`. The role is
+Demo accounts are synthetic and active only with `DEMO_MODE=true`. Configure their passwords in a local environment file; production credentials are never documented here. The role is
 loaded from the account after password verification. Customers and serial numbers
 are separate per associate. No live WhatsApp route is mounted. The chat microphone
 records locally, then sends the clip to the existing voice endpoint for English translation.
